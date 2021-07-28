@@ -1,0 +1,27 @@
+[package]
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+default-run = "app"
+edition = "2018"
+build = "src/build.rs"
+
+[build-dependencies]
+tauri-build = { version = "1.0.0-beta.3" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "1.0.0-beta.5", features = ["api-all"] }
+# tauri = { git = "https://github.com/tauri-apps/tauri", rev = "05e679a", features = ["api-all"] }
+
+[features]
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
+
+[profile.dev]
+# speeds up incremental builds a lot. Should be default in a new Rust
+# version: https://github.com/rust-lang/cargo/pull/9298
+# https://jakedeichert.com/blog/reducing-rust-incremental-compilation-times-on-macos-by-70-percent/
+split-debuginfo = "unpacked"
+# opt-level = 3
